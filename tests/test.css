@@ -1,0 +1,89 @@
+.counter {
+  width: 160px;
+  position: absolute;
+  top: 81px;
+  left: 50%;
+  margin-left: 300px;
+  overflow: hidden;
+  -webkit-transition: top 0.3s ease-out;
+   -moz-transition: top 0.3s ease-out;
+     -o-transition: top 0.3s ease-out;
+      transition: top 0.3s ease-out;
+  z-index: 30;
+}
+
+.counter-digit {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+
+.b-found-hotels-counter__label {
+  width: 5em;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -5px;
+  font-size: 11px;
+  line-height: 1.2em;
+  text-align: right;
+  text-shadow: 0px 1px 1px #fff;
+  color: #738b9b;
+}
+
+.counter-inner {
+  background: url('img/clock_countdown.png') 0 0 no-repeat;
+  color: #000;
+  display: inline-block;
+  font: 22px Arial;
+  font-weight: bold;
+  height: 36px;
+  line-height: 34px;
+  margin: 0;
+  overflow: hidden;
+  padding: 0 3px;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  width: 80px;
+  white-space: nowrap;
+}
+
+.counter-digit {
+  background: url('img/counter.png') 0 22px repeat-y;
+  background-image: url('img/counter.svg');
+  display: inline-block;
+  margin: 0;
+  height: 220044px;
+  margin: -22px 0 0;
+  padding: 0;
+  position: relative;
+  top: 0;
+  vertical-align: top;
+  width: 20px;
+  
+  -webkit-transition: all 500ms cubic-bezier(0.075, 0.820, 0.165, 1.000); 
+     -moz-transition: all 500ms cubic-bezier(0.075, 0.820, 0.165, 1.000); 
+      -ms-transition: all 500ms cubic-bezier(0.075, 0.820, 0.165, 1.000); 
+       -o-transition: all 500ms cubic-bezier(0.075, 0.820, 0.165, 1.000); 
+          transition: all 500ms cubic-bezier(0.075, 0.820, 0.165, 1.000); /* easeOutCirc */
+}
+
+.counter-digit-item {
+  display: none;
+  font: 22px Arial;
+  font-weight: bold;
+  line-height: 22px;
+  margin: 0;
+  padding: 0;
+}
+
+.counter-label {
+  color: #738b9b;
+  display: inline-block;
+  font-size: 11px;
+  line-height: 1.2em;
+  margin: -5px 2ex 0 0;
+  text-align: right;
+  text-shadow: 0 1px 1px #fff;
+  vertical-align: middle;
+  width: 5em;
+}

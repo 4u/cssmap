@@ -1,0 +1,49 @@
+#!/usr/bin/env node
+
+var CssMap = require("../cssmap");
+var Formatter = require("../formatter");
+
+var fs = require('fs');
+var argv = require('optimist')
+  .usage('Gets Euroset stores by city ID.\nUsage: $0')
+  .demand('input')
+  .alias('input', 'i')
+  .describe('input', 'Path to file with css rules')
+  .demand('output-file')
+  .alias('output-file', 'o')
+  .describe('output-file', 'Path to file with compiled css rules')
+  .demand('output-renaming-map')
+  .alias('output-renaming-map', 'orm')
+  .describe('output-renaming-map', 'Path to file with map')
+  .default('output-renaming-map-format', 'CLOSURE_COMPILED')
+  .alias('output-renaming-map-format', 'ormf')
+  .describe('output-renaming-map-format', 'Style of map file')
+  .default('alphabet', CssMap.getDefaultMapSymbols())
+  .alias('alphabet', 'a')
+  .describe('alphabet', 'Alphabet for replacements')
+  .argv;
+
+try{
+  var data = new String(fs.readFileSync(argv.i))
+  var cssMap = new CssMap(data);
+
+  if (argv.alphabet) {
+    cssMap.setMapSymbols(argv.alphabet);
+  }
+
+  cssMap.compile();
+
+  fs.writeFile(argv.o, cssMap.getResult(), function (err) {
+    if (err) throw err;
+    process.stdout.write('Saved: ' + argv.o + '\n');
+  });
+
+  fs.writeFile(argv.orm, Formatter.format(cssMap.getMap(), argv.ormf), function (err) {
+    if (err) throw err;
+    process.stdout.write('Saved: ' + argv.orm + '\n');
+  });
+
+  process.stdout.write('Success' + '\n');
+} catch(e) {
+  process.stderr.write('Exeption: ' + e.message + '\n');
+}
