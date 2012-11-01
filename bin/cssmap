@@ -5,7 +5,7 @@ var Formatter = require("../formatter");
 
 var fs = require('fs');
 var argv = require('optimist')
-  .usage('Gets Euroset stores by city ID.\nUsage: $0')
+  .usage('Creates css map for google closure. If you want to use css stuff (scss, less) without google closure stylesheets.\nUsage: $0')
   .demand('input')
   .alias('input', 'i')
   .describe('input', 'Path to file with css rules')
