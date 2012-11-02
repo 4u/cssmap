@@ -1,6 +1,8 @@
 var format = function(map, format) {
   if (format == 'CLOSURE_UNCOMPILED') {
     return closureUncompiled(map);
+  } else if (format == 'JSON') {
+    return json(map);
   }
 
   return closureCompiled(map);
@@ -18,8 +20,13 @@ var closureUncompiled = function(map) {
   ';\n';
 };
 
+var json = function(map) {
+  return JSON.stringify(map, null, 2);
+};
+
 module.exports = {
   format: format,
+  json: json,
   closureCompiled: closureCompiled,
   closureUncompiled: closureUncompiled
 };

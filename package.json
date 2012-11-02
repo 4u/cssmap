@@ -1,0 +1,27 @@
+{
+  "name": "cssmap",
+  "version": "0.0.1",
+  "description": "Creates css renaming map (for Google Closure).",
+  "keywords": ["google closure", "stylesheets"],
+  "author": {
+    "name": "Max Nikitin",
+    "email": "max@rururu.me"
+  },
+  "preferGlobal": true,
+  "private": false,
+  "dependencies": {
+    "optimist": ">= 0.3.5",
+    "xregexp": ">= 2.0.0"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "repository": "git://github.com/4u/cssmap.git",
+  "directories": {
+    "bin": "./bin"
+  },
+  "main": "cssmap.js",
+  "bin": {
+    "cssmapc": "./bin/cssmapc"
+  }
+}

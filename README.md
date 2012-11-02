@@ -1,12 +1,17 @@
-UNSTABLE!!11
+CSSMAP
+======
 
-<pre><code>Creates css map for google closure. If you want to use css stuff (scss, less) without google closure stylesheets.
-Usage: node ./bin/cssmap
+Do you want to use google-closure-stylesheets only for renamig? You don't want use huge jar file for it? CSSMAP is your choise!
 
-Options:
-  --input, -i                           Path to file with css rules           [required]
-  --output-file, -o                     Path to file with compiled css rules  [required]
-  --output-renaming-map, --orm          Path to file with map                 [required]
-  --output-renaming-map-format, --ormf  Style of map file                     [default: "CLOSURE_COMPILED"]
-  --alphabet, -a                        Alphabet for replacements             [default: "abcdefghijklmnopqrtuvwxyz"]
-</code></pre>
+
+Installation
+------------
+
+It's simply:
+`npm install git+https://github.com/4u/cssmap.git`
+
+
+Usage
+-----
+
+`cssmapc -i style.css -o renamedstyle.css -m renamingmap.js`
