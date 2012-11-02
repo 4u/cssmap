@@ -8,7 +8,7 @@ Installation
 ------------
 
 It's simply:
-`npm install git+https://github.com/4u/cssmap.git`
+`npm install -g git+https://github.com/4u/cssmap.git`
 
 
 Usage
