@@ -9,6 +9,4 @@ Options:
   --output-renaming-map, --orm          Path to file with map                 [required]
   --output-renaming-map-format, --ormf  Style of map file                     [default: "CLOSURE_COMPILED"]
   --alphabet, -a                        Alphabet for replacements             [default: "abcdefghijklmnopqrtuvwxyz"]
-
-Missing required arguments: input, output-file, output-renaming-map
 </code></pre>
