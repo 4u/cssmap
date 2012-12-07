@@ -21,11 +21,22 @@ var argv = require('optimist')
   .default('alphabet', CssMap.getDefaultMapSymbols())
   .alias('alphabet', 'a')
   .describe('alphabet', 'Alphabet for replacements')
+  .default('excludes', '')
+  .alias('excludes', 'e')
+  .describe('excludes', 'Css classes which dont need to compress')
   .argv;
 
-try{
+// try{
+  var excludes = [];
+  if (argv.excludes) {
+    excludes = argv.excludes.split(',');
+    excludes.forEach(function(str, pos) {
+      excludes[pos] = str.replace(/^\s*|\s*$/g, '');
+    });
+  }
+
   var data = new String(fs.readFileSync(argv.i))
-  var cssMap = new CssMap(data);
+  var cssMap = new CssMap(data, excludes);
 
   if (argv.alphabet) {
     cssMap.setMapSymbols(argv.alphabet);
@@ -44,6 +55,6 @@ try{
   });
 
   process.stdout.write('Success' + '\n');
-} catch(e) {
-  process.stderr.write('Exception: ' + e.message + '\n');
-}
+// } catch(e) {
+//   process.stderr.write('Exception: ' + e.message + '\n');
+// }

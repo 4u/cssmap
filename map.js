@@ -1,4 +1,3 @@
-var MAP_SYMBOLS = require('./resourses').MAP_SYMBOLS;
 
 var create = function(frequency, symbols) {
   var symbolslen = symbols.length;

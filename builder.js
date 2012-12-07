@@ -4,19 +4,23 @@ var CSS_CLASS_SEPARATOR = require('./resourses').CSS_CLASS_SEPARATOR;
 
 var re = new XRegExp(CSS_CLASS_REGEXP);
 
-var build = function(parsedData, map) {
+var build = function(parsedData, map, opt_excludes) {
+  var excludes = opt_excludes || [];
+
   parsedData.ret.forEach(function(str, pos) {
     var tokens = [];
 
     XRegExp.forEach(str, re, function(match, i) {
       var newCssClass = [];
       match[1].split(CSS_CLASS_SEPARATOR).forEach(function(str) {
-        newCssClass.push(map[str]);
+        newCssClass.push(map[str] || str);
       });
       newCssClass = newCssClass.join(CSS_CLASS_SEPARATOR);
+
+      var isExclude = excludes.indexOf(match[1]) != -1;
       tokens.push({
         orig: '.' + match[1],
-        repl: '.' + newCssClass
+        repl: '.' + (isExclude ? match[1] : newCssClass)
       });
     });
 
@@ -32,6 +36,10 @@ var build = function(parsedData, map) {
       ret += '{' + parsedData.replaces[pos - 1].name  + '}';
     }
     ret += str;
+  });
+
+  parsedData.comments.forEach(function(match) {
+    ret = ret.replace('/* ... */', '/*' + match.name + '*/');
   });
 
   return ret;

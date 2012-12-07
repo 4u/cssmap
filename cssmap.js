@@ -4,8 +4,9 @@ var Frequency = require('./frequency');
 var Map = require('./map');
 var Builder = require('./builder');
 
-var CssMap = function(data) {
+var CssMap = function(data, excludes) {
   this._data = data;
+  this._excludes = excludes;
   this._symbols = CssMap.getDefaultMapSymbols();
 };
 
@@ -21,7 +22,7 @@ CssMap.prototype.compile = function() {
   var parsedData = Parser.parse(this._data);
   this._frequency = Frequency.get(parsedData);
   this._map = Map.create(this._frequency, this._symbols);
-  this._result = Builder.build(parsedData, this._map);
+  this._result = Builder.build(parsedData, this._map, this._excludes);
 };
 
 CssMap.prototype.getMapSymbols = function() {
