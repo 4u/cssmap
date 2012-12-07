@@ -1,11 +1,28 @@
+var ejs = require('ejs');
+var fs = require('fs');
+
 var format = function(map, format) {
   if (format == 'CLOSURE_UNCOMPILED') {
     return closureUncompiled(map);
+  } else if (format == 'CLOSURE_UNCOMPILED') {
+    return closureUncompiled(map);
   } else if (format == 'JSON') {
     return json(map);
+  } else {
+    return template(map, format);
   }
 
   return closureCompiled(map);
+};
+
+var template = function(map, path) {
+  var filedata = fs.readFileSync(path);
+  if (filedata) {
+    return ejs.render(new String(filedata), {
+      map: map
+    });
+  }
+  throw Error('Bad file path: ' + path);
 };
 
 var closureCompiled = function(map) {

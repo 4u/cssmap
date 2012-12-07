@@ -17,16 +17,15 @@ var argv = require('optimist')
   .describe('output-renaming-map', 'Path to file with map')
   .default('output-renaming-map-format', 'CLOSURE_COMPILED')
   .alias('output-renaming-map-format', 'f')
-  .describe('output-renaming-map-format', 'Map format: CLOSURE_COMPILED, CLOSURE_UNCOMPILED, JSON')
+  .describe('output-renaming-map-format', 'Map format: CLOSURE_COMPILED, CLOSURE_UNCOMPILED, JSON or ejs file')
   .default('alphabet', CssMap.getDefaultMapSymbols())
   .alias('alphabet', 'a')
   .describe('alphabet', 'Alphabet for replacements')
-  .default('excludes', '')
   .alias('excludes', 'e')
   .describe('excludes', 'Css classes which dont need to compress')
   .argv;
 
-// try{
+try{
   var excludes = [];
   if (argv.excludes) {
     excludes = argv.excludes.split(',');
@@ -49,12 +48,12 @@ var argv = require('optimist')
     process.stdout.write('Saved: ' + argv.o + '\n');
   });
 
-  fs.writeFile(argv.m, Formatter.format(cssMap.getMap(), argv.r), function (err) {
+  fs.writeFile(argv.m, Formatter.format(cssMap.getMap(), argv.f), function (err) {
     if (err) throw err;
     process.stdout.write('Saved: ' + argv.m + '\n');
   });
 
   process.stdout.write('Success' + '\n');
-// } catch(e) {
-//   process.stderr.write('Exception: ' + e.message + '\n');
-// }
+} catch(e) {
+  process.stderr.write('Exception: ' + e.message + '\n');
+}

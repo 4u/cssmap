@@ -1,0 +1,4 @@
+var map;
+<% for (var orig in map) {
+%>map['<%-orig%>'] = '<%-map[orig]%>';
+<% } %>
