@@ -14,4 +14,4 @@ It's simply:
 Usage
 -----
 
-`cssmapc -i style.css -o renamedstyle.css -m renamingmap.js`
+`cssmapc -f style.css:renamedstyle.css -m renamingmap.js`
