@@ -6,17 +6,14 @@ var Formatter = require("../formatter");
 var fs = require('fs');
 var argv = require('optimist')
   .usage('Creates css map for google closure.\nUsage: $0 -i [cssFile] -o [outputCssFile] -m [outputJsFile]')
-  .demand('input')
-  .alias('input', 'i')
-  .describe('input', 'Path to file with css rules')
-  .demand('output-file')
-  .alias('output-file', 'o')
-  .describe('output-file', 'Path to file with compiled css rules')
+  .demand('file')
+  .alias('file', 'f')
+  .describe('file', 'input.css:output.css')
   .demand('output-renaming-map')
   .alias('output-renaming-map', 'm')
   .describe('output-renaming-map', 'Path to file with map')
   .default('output-renaming-map-format', 'CLOSURE_COMPILED')
-  .alias('output-renaming-map-format', 'f')
+  .alias('output-renaming-map-format', 'r')
   .describe('output-renaming-map-format', 'Map format: CLOSURE_COMPILED, CLOSURE_UNCOMPILED, JSON or ejs file')
   .default('alphabet', CssMap.getDefaultMapSymbols())
   .alias('alphabet', 'a')
@@ -34,27 +31,48 @@ try{
     });
   }
 
-  var data = new String(fs.readFileSync(argv.i))
-  var cssMap = new CssMap(data, excludes);
+  var tempFiles = argv.f instanceof Array ? argv.f : [argv.f];
+  var files = [];
+  tempFiles.forEach(function(file) {
+    var arr = file.split(':');
+    if (arr.length != 2) {
+      throw Error('Bad file: ' + file);
+    }
 
+    files.push({
+      input: arr[0],
+      output: arr[1],
+      data: new String(fs.readFileSync(arr[0]))
+    });
+  });
+
+  var cssMap = new CssMap();
+  cssMap.setExcludes(excludes);
+  files.forEach(function(file) {
+    cssMap.addFile(file.data);
+  })
   if (argv.alphabet) {
     cssMap.setMapSymbols(argv.alphabet);
   }
-
   cssMap.compile();
 
-  fs.writeFile(argv.o, cssMap.getResult(), function (err) {
-    if (err) throw err;
-    process.stdout.write('Saved: ' + argv.o + '\n');
+  var cssMapFiles = cssMap.getFiles();
+  cssMapFiles.forEach(function(file, pos) {
+    var fileData = files[pos];
+
+    fs.writeFile(fileData.output, file.result, function (err) {
+      if (err) throw err;
+      process.stdout.write('Saved: ' + fileData.output + '\n');
+    });
   });
 
-  fs.writeFile(argv.m, Formatter.format(cssMap.getMap(), argv.f), function (err) {
+  fs.writeFile(argv.m, Formatter.format(cssMap.getMap(), argv.r), function (err) {
     if (err) throw err;
     process.stdout.write('Saved: ' + argv.m + '\n');
   });
 
   process.stdout.write('Success' + '\n');
 } catch(e) {
-  throw e;
-  // process.stderr.write('Exception: ' + e.message + '\n');
+  // throw e;
+  process.stderr.write('Exception: ' + e.message + '\n');
 }

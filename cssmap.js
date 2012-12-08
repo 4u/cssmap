@@ -4,9 +4,8 @@ var Frequency = require('./frequency');
 var Map = require('./map');
 var Builder = require('./builder');
 
-var CssMap = function(data, excludes) {
-  this._data = data;
-  this._excludes = excludes;
+var CssMap = function() {
+  this._files = [];
   this._symbols = CssMap.getDefaultMapSymbols();
 };
 
@@ -14,15 +13,35 @@ CssMap.getDefaultMapSymbols = function() {
   return resourses.MAP_SYMBOLS;
 };
 
+CssMap.prototype.setExcludes = function(excludes) {
+  this._excludes = excludes;
+};
+
+CssMap.prototype.addFile = function(fileData) {
+  this._files.push({
+    data: fileData
+  });
+};
+
 CssMap.prototype.setMapSymbols = function(symbols) {
   this._symbols = symbols;
 };
 
 CssMap.prototype.compile = function() {
-  var parsedData = Parser.parse(this._data);
-  this._frequency = Frequency.get(parsedData);
+  this._files.forEach(function(file) {
+    file.parsedData = Parser.parse(file.data);
+    file.frequency = Frequency.get(file.parsedData);
+  }, this);
+
+  this._frequency = this._files.reduce(function(r, file, i, arr) {
+    return Frequency.merge(r, file.frequency);
+  }, {});
+
   this._map = Map.create(this._frequency, this._symbols);
-  this._result = Builder.build(parsedData, this._map, this._excludes);
+
+  this._files.forEach(function(file) {
+    file.result = Builder.build(file.parsedData, this._map, this._excludes);
+  }, this);
 };
 
 CssMap.prototype.getMapSymbols = function() {
@@ -37,8 +56,8 @@ CssMap.prototype.getFrequency = function() {
   return this._frequency;
 };
 
-CssMap.prototype.getResult = function() {
-  return this._result;
+CssMap.prototype.getFiles = function() {
+  return this._files;
 };
 
 module.exports = CssMap;

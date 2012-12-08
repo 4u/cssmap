@@ -1,4 +1,4 @@
-@media { .a {
+@media { .db {
     width: 160px;
     position: absolute;
     top: 81px;
@@ -12,13 +12,13 @@
     z-index: 30;
   }
 }
-.a-b {
+.db-hu {
   display: inline-block;
   vertical-align: middle;
   margin-left: 6px;
 }
 
-.c-d-e-f {
+.yi-ye-yd-yc {
   width: 5em;
   display: inline-block;
   vertical-align: middle;
@@ -30,7 +30,7 @@
   color: #738b9b;
 }
 
-.a-g {
+.db-yb {
   background: url('img/clock_countdown.png') 0 0 no-repeat;
   color: #000;
   display: inline-block;
@@ -47,7 +47,7 @@
   white-space: nowrap;
 }
 
-.a-b {
+.db-hu {
   background: url('img/counter.png') 0 22px repeat-y;
   background-image: url('img/counter.svg');
   display: inline-block;
@@ -67,7 +67,7 @@
           transition: all 500ms cubic-bezier(0.075, 0.820, 0.165, 1.000); /* easeOutCirc */
 }
 
-.a-b-h {
+.db-hu-xx {
   display: none;
   font: 22px Arial;
   font-weight: bold;
@@ -76,7 +76,7 @@
   padding: 0;
 }
 
-.a-i {
+.db-hh {
   color: #738b9b;
   display: inline-block;
   font-size: 11px;
