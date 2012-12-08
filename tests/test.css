@@ -1,17 +1,17 @@
-.counter {
-  width: 160px;
-  position: absolute;
-  top: 81px;
-  left: 50%;
-  margin-left: 300px;
-  overflow: hidden;
-  -webkit-transition: top 0.3s ease-out;
-   -moz-transition: top 0.3s ease-out;
-     -o-transition: top 0.3s ease-out;
-      transition: top 0.3s ease-out;
-  z-index: 30;
+@media { .counter {
+    width: 160px;
+    position: absolute;
+    top: 81px;
+    left: 50%;
+    margin-left: 300px;
+    overflow: hidden;
+    -webkit-transition: top 0.3s ease-out;
+     -moz-transition: top 0.3s ease-out;
+       -o-transition: top 0.3s ease-out;
+        transition: top 0.3s ease-out;
+    z-index: 30;
+  }
 }
-
 .counter-digit {
   display: inline-block;
   vertical-align: middle;

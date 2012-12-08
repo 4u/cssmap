@@ -38,6 +38,14 @@ var build = function(parsedData, map, opt_excludes) {
     ret += str;
   });
 
+  parsedData.medias.forEach(function(match) {
+    ret = ret.replace('@media [', match.name);
+  });
+
+  parsedData.doubleBrackets.forEach(function(match) {
+    ret = ret.replace('}]', match.name);
+  });
+
   parsedData.comments.forEach(function(match) {
     ret = ret.replace('/* ... */', '/*' + match.name + '*/');
   });

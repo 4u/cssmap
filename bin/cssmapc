@@ -55,5 +55,6 @@ try{
 
   process.stdout.write('Success' + '\n');
 } catch(e) {
-  process.stderr.write('Exception: ' + e.message + '\n');
+  throw e;
+  // process.stderr.write('Exception: ' + e.message + '\n');
 }

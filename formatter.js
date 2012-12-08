@@ -4,8 +4,8 @@ var fs = require('fs');
 var format = function(map, format) {
   if (format == 'CLOSURE_UNCOMPILED') {
     return closureUncompiled(map);
-  } else if (format == 'CLOSURE_UNCOMPILED') {
-    return closureUncompiled(map);
+  } else if (format == 'CLOSURE_COMPILED') {
+    return closureCompiled(map);
   } else if (format == 'JSON') {
     return json(map);
   } else {

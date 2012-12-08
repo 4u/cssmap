@@ -1,18 +1,18 @@
-.counter {
-  width: 160px;
-  position: absolute;
-  top: 81px;
-  left: 50%;
-  margin-left: 300px;
-  overflow: hidden;
-  -webkit-transition: top 0.3s ease-out;
-   -moz-transition: top 0.3s ease-out;
-     -o-transition: top 0.3s ease-out;
-      transition: top 0.3s ease-out;
-  z-index: 30;
+@media { .a {
+    width: 160px;
+    position: absolute;
+    top: 81px;
+    left: 50%;
+    margin-left: 300px;
+    overflow: hidden;
+    -webkit-transition: top 0.3s ease-out;
+     -moz-transition: top 0.3s ease-out;
+       -o-transition: top 0.3s ease-out;
+        transition: top 0.3s ease-out;
+    z-index: 30;
+  }
 }
-
-.counter-digit {
+.a-b {
   display: inline-block;
   vertical-align: middle;
   margin-left: 6px;
@@ -47,7 +47,7 @@
   white-space: nowrap;
 }
 
-.counter-digit {
+.a-b {
   background: url('img/counter.png') 0 22px repeat-y;
   background-image: url('img/counter.svg');
   display: inline-block;
