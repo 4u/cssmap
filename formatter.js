@@ -32,7 +32,7 @@ var closureCompiled = function(map) {
 };
 
 var closureUncompiled = function(map) {
-  return 'CLOSURE_CSS_NAME_MAPPING = ' +
+  return 'var CLOSURE_CSS_NAME_MAPPING = ' +
     JSON.stringify(map, null, 2) +
   ';\n';
 };
