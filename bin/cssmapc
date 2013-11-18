@@ -76,6 +76,6 @@ try{
 
   process.stdout.write('Success' + '\n');
 } catch(e) {
-  throw e;
+  // throw e;
   process.stderr.write('Exception: ' + e.message + '\n');
 }

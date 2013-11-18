@@ -27,7 +27,6 @@ CssMap.prototype.getExcludes = function() {
       ret[chunk] = true;
     });
   }, this);
-  console.log(this._byWhole, Object.keys(ret));
   return Object.keys(ret);
 };
 

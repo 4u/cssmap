@@ -16,7 +16,6 @@ var build = function(parsedData, map, byWhole) {
       });
       newCssClass = newCssClass.join(CSS_CLASS_SEPARATOR);
 
-      console.log(match[1], newCssClass);
       tokens.push({
         orig: '.' + match[1],
         repl: '.' + newCssClass
