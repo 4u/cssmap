@@ -23,13 +23,15 @@ var argv = require('optimist')
   .argv;
 
 try{
-  var excludes = [];
+  var excludes = {};
   if (argv.excludes) {
-    excludes = argv.excludes.split(',');
-    excludes.forEach(function(str, pos) {
-      excludes[pos] = str.replace(/^\s*|\s*$/g, '');
+    argv.excludes.split(',').forEach(function(cssClass) {
+      cssClass.replace(/^\s*|\s*$/g, '').split('-').forEach(function(chunk) {
+        excludes[chunk] = true;
+      });
     });
   }
+  excludes = Object.keys(excludes);
 
   var tempFiles = argv.f instanceof Array ? argv.f : [argv.f];
   var files = [];
