@@ -33,6 +33,13 @@ CssMap.prototype.getExcludes = function() {
 CssMap.prototype.enableByWholeStyle = function(enable) {
   this._byWhole = enable;
 };
+CssMap.prototype.hasWholeStyle = function() {
+  return this._byWhole;
+};
+
+CssMap.prototype.getStyle = function() {
+  return this._byWhole ? 'BY_WHOLE' : 'BY_PART';
+};
 
 CssMap.prototype.addFile = function(fileData) {
   this._files.push({

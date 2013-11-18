@@ -69,7 +69,7 @@ try{
     });
   });
 
-  fs.writeFile(argv.m, Formatter.format(cssMap.getMap(), argv.r), function (err) {
+  fs.writeFile(argv.m, Formatter.format(cssMap.getMap(), argv.r, cssMap.getStyle()), function (err) {
     if (err) throw err;
     process.stdout.write('Saved: ' + argv.m + '\n');
   });

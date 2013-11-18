@@ -1,34 +1,36 @@
 var ejs = require('ejs');
 var fs = require('fs');
 
-var format = function(map, format) {
+var format = function(map, format, opt_style) {
+  var style = opt_style || 'BY_PART';
   if (format == 'CLOSURE_UNCOMPILED') {
-    return closureUncompiled(map);
+    return closureUncompiled(map, style);
   } else if (format == 'CLOSURE_COMPILED') {
-    return closureCompiled(map);
+    return closureCompiled(map, style);
   } else if (format == 'JSON') {
     return json(map);
   } else {
-    return template(map, format);
+    return template(map, style, format);
   }
 
   return closureCompiled(map);
 };
 
-var template = function(map, path) {
+var template = function(map, style, path) {
   var filedata = fs.readFileSync(path);
   if (filedata) {
     return ejs.render(new String(filedata), {
-      map: map
+      map: map,
+      style: style
     });
   }
   throw Error('Bad file path: ' + path);
 };
 
-var closureCompiled = function(map) {
+var closureCompiled = function(map, style) {
   return 'goog.setCssNameMapping(' +
-    JSON.stringify(map, null, 2) +
-  ');\n';
+    JSON.stringify(map, null, 2) + ', \'' + style +
+  '\');\n';
 };
 
 var closureUncompiled = function(map) {
