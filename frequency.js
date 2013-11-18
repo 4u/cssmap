@@ -4,12 +4,13 @@ var CSS_CLASS_SEPARATOR = require('./resourses').CSS_CLASS_SEPARATOR;
 
 var re = new XRegExp(CSS_CLASS_REGEXP);
 
-var get = function(parsedData) {
+var get = function(parsedData, byWhole) {
   var frequency = {};
 
   parsedData.ret.forEach(function(str, pos) {
     XRegExp.forEach(str, re, function(match, i) {
-      match[1].split(CSS_CLASS_SEPARATOR).forEach(function(str) {
+      var arr = byWhole ? [match[1]] : match[1].split(CSS_CLASS_SEPARATOR);
+      arr.forEach(function(str) {
         if (!frequency[str]) {
           frequency[str] = 0;
         }

@@ -4,17 +4,19 @@ var CSS_CLASS_SEPARATOR = require('./resourses').CSS_CLASS_SEPARATOR;
 
 var re = new XRegExp(CSS_CLASS_REGEXP);
 
-var build = function(parsedData, map) {
+var build = function(parsedData, map, byWhole) {
   parsedData.ret.forEach(function(str, pos) {
     var tokens = [];
 
     XRegExp.forEach(str, re, function(match, i) {
       var newCssClass = [];
-      match[1].split(CSS_CLASS_SEPARATOR).forEach(function(str) {
+      var arr = byWhole ? [match[1]] : match[1].split(CSS_CLASS_SEPARATOR);
+      arr.forEach(function(str) {
         newCssClass.push(map[str] || str);
       });
       newCssClass = newCssClass.join(CSS_CLASS_SEPARATOR);
 
+      console.log(match[1], newCssClass);
       tokens.push({
         orig: '.' + match[1],
         repl: '.' + newCssClass

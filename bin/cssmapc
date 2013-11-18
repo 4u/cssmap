@@ -20,15 +20,15 @@ var argv = require('optimist')
   .describe('alphabet', 'Alphabet for replacements')
   .alias('excludes', 'e')
   .describe('excludes', 'Css classes which dont need to compress')
+  .alias('bywhole', 'w')
+  .describe('bywhole', 'Obfuscation style for CSS class names')
   .argv;
 
 try{
   var excludes = {};
   if (argv.excludes) {
     argv.excludes.split(',').forEach(function(cssClass) {
-      cssClass.replace(/^\s*|\s*$/g, '').split('-').forEach(function(chunk) {
-        excludes[chunk] = true;
-      });
+      excludes[cssClass.replace(/^\s*|\s*$/g, '')] = true;
     });
   }
   excludes = Object.keys(excludes);
@@ -49,6 +49,7 @@ try{
   });
 
   var cssMap = new CssMap();
+  cssMap.enableByWholeStyle(!!argv.bywhole);
   cssMap.setExcludes(excludes);
   files.forEach(function(file) {
     cssMap.addFile(file.data);
@@ -75,6 +76,6 @@ try{
 
   process.stdout.write('Success' + '\n');
 } catch(e) {
-  // throw e;
+  throw e;
   process.stderr.write('Exception: ' + e.message + '\n');
 }

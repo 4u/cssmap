@@ -3,8 +3,10 @@ var Parser = require('./parser');
 var Frequency = require('./frequency');
 var Map = require('./map');
 var Builder = require('./builder');
+var CSS_CLASS_SEPARATOR = require('./resourses').CSS_CLASS_SEPARATOR;
 
 var CssMap = function() {
+  this._byWhole = false;
   this._files = [];
   this._symbols = CssMap.getDefaultMapSymbols();
 };
@@ -15,6 +17,22 @@ CssMap.getDefaultMapSymbols = function() {
 
 CssMap.prototype.setExcludes = function(excludes) {
   this._excludes = excludes;
+};
+
+CssMap.prototype.getExcludes = function() {
+  var ret = {};
+  this._excludes.forEach(function(exclude) {
+    var arr = this._byWhole ? [exclude] : exclude.split(CSS_CLASS_SEPARATOR);
+    arr.forEach(function(chunk) {
+      ret[chunk] = true;
+    });
+  }, this);
+  console.log(this._byWhole, Object.keys(ret));
+  return Object.keys(ret);
+};
+
+CssMap.prototype.enableByWholeStyle = function(enable) {
+  this._byWhole = enable;
 };
 
 CssMap.prototype.addFile = function(fileData) {
@@ -30,7 +48,7 @@ CssMap.prototype.setMapSymbols = function(symbols) {
 CssMap.prototype.compile = function() {
   this._files.forEach(function(file) {
     file.parsedData = Parser.parse(file.data);
-    file.frequency = Frequency.get(file.parsedData);
+    file.frequency = Frequency.get(file.parsedData, this._byWhole);
   }, this);
 
   this._frequency = this._files.reduce(function(r, file, i, arr) {
@@ -38,12 +56,12 @@ CssMap.prototype.compile = function() {
   }, {});
 
   this._map = Map.create(this._frequency, this._symbols);
-  (this._excludes || []).forEach(function(key) {
+  this.getExcludes().forEach(function(key) {
     delete this._map[key];
   }, this);
 
   this._files.forEach(function(file) {
-    file.result = Builder.build(file.parsedData, this._map);
+    file.result = Builder.build(file.parsedData, this._map, this._byWhole);
   }, this);
 };
 
