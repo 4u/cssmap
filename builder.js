@@ -4,9 +4,7 @@ var CSS_CLASS_SEPARATOR = require('./resourses').CSS_CLASS_SEPARATOR;
 
 var re = new XRegExp(CSS_CLASS_REGEXP);
 
-var build = function(parsedData, map, opt_excludes) {
-  var excludes = opt_excludes || [];
-
+var build = function(parsedData, map) {
   parsedData.ret.forEach(function(str, pos) {
     var tokens = [];
 
@@ -17,10 +15,9 @@ var build = function(parsedData, map, opt_excludes) {
       });
       newCssClass = newCssClass.join(CSS_CLASS_SEPARATOR);
 
-      var isExclude = excludes.indexOf(match[1]) != -1;
       tokens.push({
         orig: '.' + match[1],
-        repl: '.' + (isExclude ? match[1] : newCssClass)
+        repl: '.' + newCssClass
       });
     });
 

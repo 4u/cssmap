@@ -38,9 +38,12 @@ CssMap.prototype.compile = function() {
   }, {});
 
   this._map = Map.create(this._frequency, this._symbols);
+  (this._excludes || []).forEach(function(key) {
+    delete this._map[key];
+  }, this);
 
   this._files.forEach(function(file) {
-    file.result = Builder.build(file.parsedData, this._map, this._excludes);
+    file.result = Builder.build(file.parsedData, this._map);
   }, this);
 };
 
