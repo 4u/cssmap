@@ -21,6 +21,14 @@ var parse = function(str, opt_excludes) {
     escapeChar: '\\'
   });
 
+  var keyframes = [];
+  XRegExp.forEach(ret, /@(-[a-z]+-)?keyframes .*?\{[\s\S]+}\s*}/, function (match, i) {
+    keyframes.push({
+      index: match.index,
+      name: match[0]
+    });
+  });
+
   var medias = [];
   XRegExp.forEach(ret, /@media.*?\{/, function (match, i) {
     medias.push({
@@ -37,6 +45,7 @@ var parse = function(str, opt_excludes) {
     });
   });
 
+  ret = ret.replace(/@(-[a-z]+-)?keyframes .*?\{[\s\S]+}\s*}/g, '@keyframes []');
   ret = ret.replace(/@media.*?\{/g, '@media [');
   ret = ret.replace(/}\s*}/g, '}]');
 
@@ -54,6 +63,7 @@ var parse = function(str, opt_excludes) {
 
   return {
     doubleBrackets: doubleBrackets,
+    keyframes: keyframes,
     medias: medias,
     comments: comments,
     replaces: replaces,

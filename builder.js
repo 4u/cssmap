@@ -40,6 +40,10 @@ var build = function(parsedData, map, byWhole) {
     ret = ret.replace('@media [', match.name);
   });
 
+  parsedData.keyframes.forEach(function(match) {
+    ret = ret.replace('@keyframes []', match.name);
+  });
+
   parsedData.doubleBrackets.forEach(function(match) {
     ret = ret.replace('}]', match.name);
   });
